@@ -30,6 +30,7 @@ import org.apache.shindig.social.opensocial.spi.CollectionOptions;
 import org.apache.shindig.social.opensocial.spi.GroupId;
 import org.apache.shindig.social.opensocial.spi.UserId;
 
+import com.aipo.social.opensocial.model.ALMobileNotificationSettings;
 import com.aipo.social.opensocial.model.ALPerson;
 
 public interface PersonService {
@@ -50,4 +51,12 @@ public interface PersonService {
 
   public Future<Void> deleteIcon(UserId paramUserId,
       SecurityToken paramSecurityToken) throws ProtocolException;
+
+  public Future<RestfulCollection<ALMobileNotificationSettings>> getMobileNotification(
+      UserId paramUserId, SecurityToken paramSecurityToken)
+      throws ProtocolException;
+
+  public Future<RestfulCollection<ALMobileNotificationSettings>> putMobileNotification(
+      UserId paramUserId, String notification, SecurityToken paramSecurityToken)
+      throws ProtocolException;
 }
