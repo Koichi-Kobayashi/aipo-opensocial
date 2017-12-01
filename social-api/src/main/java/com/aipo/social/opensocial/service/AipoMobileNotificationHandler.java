@@ -35,9 +35,9 @@ import com.aipo.social.opensocial.spi.PersonService;
 import com.google.inject.Inject;
 
 /**
- * RPC/REST handler for mobilenotification API
+ * RPC/REST handler for notification API
  */
-@Service(name = "mobilenotification")
+@Service(name = "notification")
 public class AipoMobileNotificationHandler {
 
   private final PersonService personService;
@@ -50,16 +50,16 @@ public class AipoMobileNotificationHandler {
   /**
    * モバイル通知 <br>
    * <code>
-   * GET /mobilenotification/:userId
+   * GET /notification/mobile
    * </code><br>
    * <code>
-   * osapi.mobilenotification.get( { userId: :userId })
+   * osapi.mobilenotification.get
    * </code>
    *
    * @param request
    * @return
    */
-  @Operation(httpMethods = "GET", name = "notification.get", path = "/{userId}+")
+  @Operation(httpMethods = "GET", name = "mobilenotification.get", path = "/mobile")
   public Future<?> getNotification(SocialRequestItem request) {
     try {
       Set<UserId> userIds = request.getUsers();
@@ -82,16 +82,16 @@ public class AipoMobileNotificationHandler {
   /**
    * モバイル通知設定更新 <br>
    * <code>
-   * PUT /mobilenotification/:userId
+   * PUT /notification/mobile
    * </code><br>
    * <code>
-   * osapi.mobile.update( { userId: :userId })
+   * osapi.mobilenotification.put
    * </code>
    *
    * @param request
    * @return
    */
-  @Operation(httpMethods = "PUT", name = "notification.put", path = "/{userId}+")
+  @Operation(httpMethods = "PUT", name = "mobilenotification.put", path = "/mobile")
   public Future<?> putNotification(SocialRequestItem request) {
     try {
       Set<UserId> userIds = request.getUsers();

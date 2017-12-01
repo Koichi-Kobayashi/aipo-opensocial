@@ -305,8 +305,8 @@ public class AipoPersonService extends AbstractService implements PersonService 
     setUp(token);
     checkSameViewer(id, token);
     String username = getUserId(id, token);
-
-    String userId = getUserId(id, token);
+    String userId =
+      String.valueOf(turbineUserDbService.findByUsername(username).getUserId());
 
     String notification =
       aipoConfigDbService.get(CONFIG_MOBILE_NOTIFICATION_PREFIX + userId, "A1");
@@ -344,19 +344,20 @@ public class AipoPersonService extends AbstractService implements PersonService 
 
   @Override
   public Future<RestfulCollection<ALMobileNotificationSettings>> putMobileNotification(
-      UserId userId, String mobileNotification, SecurityToken token)
+      UserId id, String mobileNotification, SecurityToken token)
       throws ProtocolException {
 
     setUp(token);
-
-    checkSameViewer(userId, token);
-    String username = getUserId(userId, token);
+    checkSameViewer(id, token);
+    String username = getUserId(id, token);
+    String userId =
+      String.valueOf(turbineUserDbService.findByUsername(username).getUserId());
 
     String mobile = String.valueOf(mobileNotification.charAt(0));
     String browse = String.valueOf(mobileNotification.charAt(1));
 
-    if (!("A".equals(mobile) || "F".equals(mobile) || "0".equals(browse) || "1"
-      .equals(browse))) {
+    if (!(("A".equals(mobile) || "F".equals(mobile)) && ("0".equals(browse) || "1"
+      .equals(browse)))) {
       throw new AipoProtocolException(AipoErrorCode.VALIDATE_ERROR
         .customMessage("Parameter mobileNotification invalid."));
     }
